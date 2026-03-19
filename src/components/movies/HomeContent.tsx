@@ -14,6 +14,8 @@ import type { MovieType } from "@/src/types/movie";
 import { PopcornlyIcon } from "../icons/PopcornlyIcon";
 import { useSearchHistory } from "@/src/context/SearchHistoryContext";
 
+const emptyMessage = "Something went wrong, please try again later.";
+
 export function HomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -93,12 +95,18 @@ export function HomeContent() {
             />
           );
         }
+        return (
+          <StateMessage
+            variant="error"
+            description={emptyMessage}
+          />
+        );
       }
 
       return (
         <StateMessage
           variant="error"
-          description="Something went wrong, please try again later."
+          description={emptyMessage}
         />
       );
     }
