@@ -9,6 +9,16 @@ import type {
 
 const API_KEY = process.env.NEXT_PUBLIC_OMDB_API_KEY;
 
+export class OmdbSearchError extends Error {
+  constructor(
+    message: string,
+    public readonly type: "no_results" | "too_many" | "api_error"
+  ) {
+    super(message);
+    this.name = "OmdbSearchError";
+  }
+}
+
 function buildUrl(params: Record<string, string | number | undefined>): string {
   const url = new URL(OMDB_BASE_URL);
   url.searchParams.set("apikey", API_KEY ?? "");
@@ -37,7 +47,13 @@ export async function searchMovies(
   const data: OmdbSearchResult = await res.json();
 
   if (data.Response === "False") {
-    throw new Error(data.Error);
+    if (data.Error === "Movie not found!") {
+      throw new OmdbSearchError(data.Error, "no_results");
+    }
+    if (data.Error === "Too many results.") {
+      throw new OmdbSearchError(data.Error, "too_many");
+    }
+    throw new OmdbSearchError(data.Error, "api_error");
   }
 
   return data;

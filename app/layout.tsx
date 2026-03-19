@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "@/src/context/ThemeContext";
+import { QueryProvider } from "@/src/context/QueryProvider";
 import { Header } from "@/src/components/layout/Header";
 import "./globals.css";
 
@@ -21,11 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} h-full antialiased dark`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ThemeProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-        </ThemeProvider>
+      <body className="min-h-full flex flex-col bg-background text-foreground" suppressHydrationWarning>
+        <QueryProvider>
+          <ThemeProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );
