@@ -5,6 +5,7 @@ import { useMovieDetail } from "@/src/hooks/useMovieDetail";
 import { MovieDetail } from "./MovieDetail";
 import { StateMessage } from "@/src/components/common/StateMessage";
 import { OmdbDetailError } from "@/src/lib/omdb";
+import { SkeletonDetail } from "@/src/components/common/SkeletonDetail";
 
 interface MovieDetailContentProps {
   imdbId: string;
@@ -15,11 +16,7 @@ export function MovieDetailContent({ imdbId }: MovieDetailContentProps) {
   const { movie, isLoading, isError, error } = useMovieDetail(imdbId);
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-32">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
-      </div>
-    );
+    return <SkeletonDetail />;
   }
 
   if (isError || !movie) {

@@ -7,6 +7,7 @@ import { Pagination } from "@/src/components/common/Pagination";
 import { useMovieSearch } from "@/src/hooks/useMovieSearch";
 import { StateMessage } from "@/src/components/common/StateMessage";
 import { OmdbSearchError } from "@/src/lib/omdb";
+import { SkeletonGrid } from "@/src/components/common/SkeletonCard";
 import { Film } from "lucide-react";
 
 export function HomeContent() {
@@ -28,11 +29,7 @@ export function HomeContent() {
 
   const renderContent = () => {
     if (isLoading) {
-      return (
-        <div className="flex items-center justify-center py-20">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
-        </div>
-      );
+      return <SkeletonGrid />;
     }
 
     if (isError) {
