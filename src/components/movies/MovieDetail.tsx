@@ -2,6 +2,7 @@ import { Star, Clock, Calendar, Award } from "lucide-react";
 import { ImageWithFallback } from "@/src/components/common/ImageWithFallback";
 import { BackButton } from "@/src/components/common/BackButton";
 import { DetailField } from "@/src/components/common/DetailField";
+import { FavoriteButton } from "./FavoriteButton";
 import type { MovieDetail as MovieDetailType } from "@/src/types/movie";
 
 interface MovieDetailProps {
@@ -25,11 +26,22 @@ export function MovieDetail({ movie }: MovieDetailProps) {
         </div>
 
         <div className="flex flex-1 flex-col gap-5">
-          <div>
+          <div className="flex items-start justify-between gap-4">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               {movie.Title}
             </h1>
-            <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-muted">
+            <FavoriteButton
+              movie={{
+                Title: movie.Title,
+                Year: movie.Year,
+                imdbID: movie.imdbID,
+                Type: movie.Type as "movie" | "series" | "episode",
+                Poster: movie.Poster,
+              }}
+              size="default"
+            />
+          </div>
+          <div className="flex flex-wrap items-center gap-3 text-sm text-muted">
               <span className="flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
                 {movie.Year}
@@ -43,7 +55,6 @@ export function MovieDetail({ movie }: MovieDetailProps) {
                   {movie.Rated}
                 </span>
               )}
-            </div>
           </div>
 
           {movie.imdbRating !== "N/A" && (

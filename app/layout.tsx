@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "@/src/context/ThemeContext";
 import { QueryProvider } from "@/src/context/QueryProvider";
+import { FavoritesProvider } from "@/src/context/FavoritesContext";
 import { Header } from "@/src/components/layout/Header";
 import "./globals.css";
 
@@ -22,11 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} h-full antialiased dark`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-background text-foreground" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
         <QueryProvider>
           <ThemeProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
+            <FavoritesProvider>
+              <Header />
+              <main className="flex-1">{children}</main>
+            </FavoritesProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>
