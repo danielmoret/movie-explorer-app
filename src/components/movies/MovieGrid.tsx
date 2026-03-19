@@ -1,26 +1,33 @@
 import type { MovieSearchResult } from "@/src/types/movie";
 import { MovieCard } from "./MovieCard";
+import { MovieListItem } from "./MovieListItem";
 
 interface MovieGridProps {
   movies: MovieSearchResult[];
+  view?: "grid" | "list";
 }
 
-export function MovieGrid({ movies }: MovieGridProps) {
+export function MovieGrid({ movies, view = "grid" }: MovieGridProps) {
   if (movies.length === 0) return null;
 
-  //Duplicate movies are not allowed
-  const unique = Array.from(
-    new Map(movies.map((m) => [m.imdbID, m])).values()
-  );
-
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-      {unique.map((movie) => (
+    <div
+      className={
+        view === "list"
+          ? "flex flex-col gap-3"
+          : "grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+      }
+    >
+      {movies.map((movie, index) => (
         <div
-          key={movie.imdbID}
+          key={`${movie.imdbID}-${index}`}
           className="animate-fade-in-up"
         >
-          <MovieCard movie={movie} />
+          {view === "list" ? (
+            <MovieListItem movie={movie} />
+          ) : (
+            <MovieCard movie={movie} />
+          )}
         </div>
       ))}
     </div>
