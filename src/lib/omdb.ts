@@ -59,18 +59,34 @@ export async function searchMovies(
   return data;
 }
 
+export class OmdbDetailError extends Error {
+  constructor(
+    message: string,
+    public readonly type: "invalid_id" | "api_error"
+  ) {
+    super(message);
+    this.name = "OmdbDetailError";
+  }
+}
+
 export async function getMovieById(imdbId: string): Promise<MovieDetail> {
   const url = buildUrl({ i: imdbId, plot: "full" });
   const res = await fetch(url);
 
   if (!res.ok) {
-    throw new Error(`OMDb request failed with status ${res.status}`);
+    throw new OmdbDetailError(
+      `OMDb request failed with status ${res.status}`,
+      "api_error"
+    );
   }
 
   const data: OmdbDetailResult = await res.json();
 
   if (data.Response === "False") {
-    throw new Error(data.Error);
+    if (data.Error === "Incorrect IMDb ID.") {
+      throw new OmdbDetailError(data.Error, "invalid_id");
+    }
+    throw new OmdbDetailError(data.Error, "api_error");
   }
 
   return data;

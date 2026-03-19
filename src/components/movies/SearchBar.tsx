@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { MAX_SEARCH_LENGTH } from "@/src/constants";
+import { Button } from "@/src/components/common/Button";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -32,13 +33,14 @@ export function SearchBar({ onSearch, isLoading, placeholder = "Search movies, s
           maxLength={MAX_SEARCH_LENGTH}
           className="h-12 w-full rounded-full border border-white/10 bg-card pl-12 pr-28 text-sm text-foreground placeholder:text-muted outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent"
         />
-        <button
+        <Button
           type="submit"
+          size="sm"
           disabled={isLoading || input.trim().length === 0}
-          className="absolute right-2 h-8 rounded-full bg-accent px-4 text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="absolute right-2"
         >
           {isLoading ? "Searching..." : "Search"}
-        </button>
+        </Button>
       </div>
     </form>
   );

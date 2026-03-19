@@ -1,12 +1,19 @@
 import { AlertCircle, SearchX, Info, type LucideIcon } from "lucide-react";
+import { Button } from "./Button";
 
 type Variant = "error" | "empty" | "info";
+
+interface StateMessageAction {
+  label: string;
+  onClick: () => void;
+}
 
 interface StateMessageProps {
   variant: Variant;
   message?: string;
   description?: string;
   icon?: LucideIcon;
+  action?: StateMessageAction;
 }
 
 const variantConfig: Record<
@@ -35,6 +42,7 @@ export function StateMessage({
   message,
   description,
   icon,
+  action,
 }: StateMessageProps) {
   const config = variantConfig[variant];
   const Icon = icon ?? config.icon;
@@ -44,6 +52,11 @@ export function StateMessage({
       <Icon className={`h-10 w-10 ${config.iconColor}`} />
       <p className="text-lg font-medium">{message ?? config.defaultMessage}</p>
       {description && <p className="text-sm text-muted">{description}</p>}
+      {action && (
+        <Button onClick={action.onClick} className="mt-2">
+          {action.label}
+        </Button>
+      )}
     </div>
   );
 }
