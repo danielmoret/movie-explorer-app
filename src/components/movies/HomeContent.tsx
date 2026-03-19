@@ -5,14 +5,16 @@ import { useCallback } from "react";
 import { SearchBar } from "./SearchBar";
 import { SearchFilters } from "./SearchFilters";
 import { MovieGrid } from "./MovieGrid";
+import { Button } from "@/src/components/common/Button";
 import { Pagination } from "@/src/components/common/Pagination";
 import { useMovieSearch } from "@/src/hooks/useMovieSearch";
 import { StateMessage } from "@/src/components/common/StateMessage";
 import { OmdbSearchError } from "@/src/lib/omdb";
-import { SkeletonGrid } from "@/src/components/common/SkeletonCard";
+import { SkeletonGrid, SkeletonList } from "@/src/components/common/SkeletonCard";
 import type { MovieType } from "@/src/types/movie";
 import { PopcornlyIcon } from "../icons/PopcornlyIcon";
 import { useSearchHistory } from "@/src/context/SearchHistoryContext";
+import { LayoutGrid, List } from "lucide-react";
 
 const emptyMessage = "Something went wrong, please try again later.";
 
@@ -24,6 +26,7 @@ export function HomeContent() {
   const page = Number(searchParams.get("page") ?? "1");
   const type = (searchParams.get("type") ?? "") as MovieType | "";
   const year = searchParams.get("year") ?? "";
+  const view = searchParams.get("view") === "list" ? "list" : "grid";
 
   const { movies, totalResults, totalPages, isLoading, isError, error } =
     useMovieSearch({
@@ -72,9 +75,13 @@ export function HomeContent() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleViewChange = (newView: "grid" | "list") => {
+    updateParams({ view: newView, page: "1" });
+  };
+
   const renderContent = () => {
     if (isLoading) {
-      return <SkeletonGrid />;
+      return view === "list" ? <SkeletonList /> : <SkeletonGrid />;
     }
 
     if (isError) {
@@ -113,7 +120,7 @@ export function HomeContent() {
 
     return (
       <>
-        <MovieGrid movies={movies} />
+        <MovieGrid movies={movies} view={view} />
         <Pagination
           currentPage={page}
           totalPages={totalPages}
@@ -162,6 +169,24 @@ export function HomeContent() {
               onYearChange={handleYearChange}
               onReset={handleResetFilters}
             />
+            <div className="flex items-center gap-2">
+              <Button
+                variant={view === "grid" ? "primary" : "ghost"}
+                size="sm"
+                onClick={() => handleViewChange("grid")}
+              >
+                <LayoutGrid className="mr-1 h-4 w-4" />
+                Grid
+              </Button>
+              <Button
+                variant={view === "list" ? "primary" : "ghost"}
+                size="sm"
+                onClick={() => handleViewChange("list")}
+              >
+                <List className="mr-1 h-4 w-4" />
+                List
+              </Button>
+            </div>
             {totalResults > 0 && (
               <p className="text-sm text-muted">
                 {totalResults} results for &quot;{query}&quot;
