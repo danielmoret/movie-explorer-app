@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Image from "next/image";
-import { POSTER_FALLBACK } from "@/src/constants";
+import { PosterPlaceholder } from "@/src/components/common/PosterPlaceholder";
 
 interface ImageWithFallbackProps {
   src: string;
@@ -10,6 +10,7 @@ interface ImageWithFallbackProps {
   fill?: boolean;
   sizes?: string;
   className?: string;
+  fallback?: ReactNode;
 }
 
 export function ImageWithFallback({
@@ -18,20 +19,36 @@ export function ImageWithFallback({
   fill = true,
   sizes,
   className = "object-cover",
+  fallback,
 }: ImageWithFallbackProps) {
   const [broken, setBroken] = useState(false);
 
-  const resolvedSrc = broken || !src || src === "N/A" ? POSTER_FALLBACK : src;
+  const shouldShowPlaceholder =
+    broken || !src || src === "N/A" || src === "null";
 
   return (
-    <Image
-      src={resolvedSrc}
-      alt={alt}
-      fill={fill}
-      sizes={sizes}
-      className={className}
-      onError={() => setBroken(true)}
-      unoptimized={resolvedSrc.startsWith("http")}
-    />
+    <>
+      {shouldShowPlaceholder ? (
+        fallback ? (
+          <div
+            className={`${fill ? "absolute inset-0" : ""} ${className}`}
+          >
+            {fallback}
+          </div>
+        ) : (
+          <PosterPlaceholder fill={fill} className={className} />
+        )
+      ) : (
+        <Image
+          src={src}
+          alt={alt}
+          fill={fill}
+          sizes={sizes}
+          className={className}
+          onError={() => setBroken(true)}
+          unoptimized={src.startsWith("http")}
+        />
+      )}
+    </>
   );
 }

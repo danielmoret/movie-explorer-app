@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Film, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useFavorites } from "@/src/context/FavoritesContext";
+import { PopcornlyIcon } from "../icons/PopcornlyIcon";
 
 export function Header() {
   const { favorites } = useFavorites();
@@ -13,7 +14,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-transparent bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
-          <Film className="h-6 w-6 text-accent" />
+          <PopcornlyIcon className="h-8 w-8 text-accent" />
           <span className="hidden text-lg font-semibold tracking-tight sm:inline">
             Popcornly
           </span>

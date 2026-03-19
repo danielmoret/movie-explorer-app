@@ -10,8 +10,8 @@ import { useMovieSearch } from "@/src/hooks/useMovieSearch";
 import { StateMessage } from "@/src/components/common/StateMessage";
 import { OmdbSearchError } from "@/src/lib/omdb";
 import { SkeletonGrid } from "@/src/components/common/SkeletonCard";
-import { Film } from "lucide-react";
 import type { MovieType } from "@/src/types/movie";
+import { PopcornlyIcon } from "../icons/PopcornlyIcon";
 
 export function HomeContent() {
   const searchParams = useSearchParams();
@@ -115,7 +115,7 @@ export function HomeContent() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6">
       {!query ? (
         <section className="flex flex-col items-center justify-center gap-6 py-24 text-center">
-          <Film className="animate-fade-in-up h-16 w-16 text-accent" />
+          <PopcornlyIcon className="animate-fade-in-up h-24 w-24 text-accent" />
           <h1 className="animate-fade-in-up text-4xl font-bold tracking-tight sm:text-5xl" style={{ animationDelay: "75ms" }}>
             Discover Movies & Series
           </h1>
