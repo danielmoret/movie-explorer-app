@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { FavoritesContent } from "@/src/components/movies/FavoritesContent";
 
 export const metadata: Metadata = {
-  title: "Favorites | Movie Explorer",
+  title: "Favorites | Popcornly",
   description: "Your favorite movies and series",
 };
 

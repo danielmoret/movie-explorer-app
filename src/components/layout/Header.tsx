@@ -15,7 +15,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2">
           <Film className="h-6 w-6 text-accent" />
           <span className="hidden text-lg font-semibold tracking-tight sm:inline">
-            Movie Explorer
+            Popcornly
           </span>
         </Link>
 

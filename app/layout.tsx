@@ -12,7 +12,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Movie Explorer",
+  title: "Popcornly",
   description: "Busca y explora películas usando la API de OMDb",
 };
 

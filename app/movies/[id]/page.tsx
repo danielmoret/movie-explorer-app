@@ -14,12 +14,12 @@ export async function generateMetadata({
   try {
     const movie = await getMovieById(id);
     return {
-      title: `${movie.Title} (${movie.Year}) | Movie Explorer`,
+      title: `${movie.Title} (${movie.Year}) | Popcornly`,
       description: movie.Plot !== "N/A" ? movie.Plot : undefined,
     };
   } catch {
     return {
-      title: "Movie Details | Movie Explorer",
+      title: "Movie Details | Popcornly",
     };
   }
 }
