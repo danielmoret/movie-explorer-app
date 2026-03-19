@@ -35,9 +35,10 @@ function buildUrl(params: Record<string, string | number | undefined>): string {
 export async function searchMovies(
   query: string,
   page: number = 1,
-  type?: MovieType
+  type?: MovieType,
+  year?: string
 ): Promise<MovieSearchResponse> {
-  const url = buildUrl({ s: query, page, type });
+  const url = buildUrl({ s: query, page, type, y: year });
   const res = await fetch(url);
 
   if (!res.ok) {

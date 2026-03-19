@@ -3,6 +3,7 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { SearchBar } from "./SearchBar";
+import { SearchFilters } from "./SearchFilters";
 import { MovieGrid } from "./MovieGrid";
 import { Pagination } from "@/src/components/common/Pagination";
 import { useMovieSearch } from "@/src/hooks/useMovieSearch";
@@ -10,6 +11,7 @@ import { StateMessage } from "@/src/components/common/StateMessage";
 import { OmdbSearchError } from "@/src/lib/omdb";
 import { SkeletonGrid } from "@/src/components/common/SkeletonCard";
 import { Film } from "lucide-react";
+import type { MovieType } from "@/src/types/movie";
 
 export function HomeContent() {
   const searchParams = useSearchParams();
@@ -17,15 +19,26 @@ export function HomeContent() {
 
   const query = searchParams.get("q") ?? "";
   const page = Number(searchParams.get("page") ?? "1");
+  const type = (searchParams.get("type") ?? "") as MovieType | "";
+  const year = searchParams.get("year") ?? "";
 
   const { movies, totalResults, totalPages, isLoading, isError, error } =
-    useMovieSearch({ query, page });
+    useMovieSearch({
+      query,
+      page,
+      type: type || undefined,
+      year: year || undefined,
+    });
 
   const updateParams = useCallback(
     (params: Record<string, string>) => {
       const sp = new URLSearchParams(searchParams.toString());
       for (const [key, value] of Object.entries(params)) {
-        sp.set(key, value);
+        if (value) {
+          sp.set(key, value);
+        } else {
+          sp.delete(key);
+        }
       }
       router.push(`/?${sp.toString()}`);
     },
@@ -34,6 +47,18 @@ export function HomeContent() {
 
   const handleSearch = (newQuery: string) => {
     updateParams({ q: newQuery, page: "1" });
+  };
+
+  const handleTypeChange = (newType: string) => {
+    updateParams({ type: newType, page: "1" });
+  };
+
+  const handleYearChange = (newYear: string) => {
+    updateParams({ year: newYear, page: "1" });
+  };
+
+  const handleResetFilters = () => {
+    updateParams({ type: "", year: "", page: "1" });
   };
 
   const handlePageChange = (newPage: number) => {
@@ -104,6 +129,13 @@ export function HomeContent() {
         <section className="flex flex-col gap-6 py-8">
           <div className="flex flex-col items-center gap-4">
             <SearchBar onSearch={handleSearch} isLoading={isLoading} defaultValue={query} />
+            <SearchFilters
+              type={type}
+              year={year}
+              onTypeChange={handleTypeChange}
+              onYearChange={handleYearChange}
+              onReset={handleResetFilters}
+            />
             {totalResults > 0 && (
               <p className="text-sm text-muted">
                 {totalResults} results for &quot;{query}&quot;

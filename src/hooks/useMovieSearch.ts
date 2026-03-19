@@ -8,7 +8,8 @@ import { PAGE_SIZE } from "@/src/constants";
 interface UseMovieSearchParams {
   query: string;
   page: number;
-  type?: MovieType
+  type?: MovieType;
+  year?: string;
 }
 
 interface UseMovieSearchReturn {
@@ -24,10 +25,11 @@ export function useMovieSearch({
   query,
   page,
   type,
+  year,
 }: UseMovieSearchParams): UseMovieSearchReturn {
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["movies", query, page, type],
-    queryFn: () => searchMovies(query, page, type),
+    queryKey: ["movies", query, page, type, year],
+    queryFn: () => searchMovies(query, page, type, year),
     enabled: query.trim().length > 0,
   });
 
