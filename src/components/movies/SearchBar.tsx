@@ -9,10 +9,11 @@ interface SearchBarProps {
   onSearch: (query: string) => void;
   isLoading?: boolean;
   placeholder?: string;
+  defaultValue?: string;
 }
 
-export function SearchBar({ onSearch, isLoading, placeholder = "Search movies, series, episodes..." }: SearchBarProps) {
-  const [input, setInput] = useState("");
+export function SearchBar({ onSearch, isLoading, placeholder = "Search movies, series, episodes...", defaultValue = "" }: SearchBarProps) {
+  const [input, setInput] = useState(defaultValue);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

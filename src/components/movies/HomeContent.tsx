@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useCallback } from "react";
 import { SearchBar } from "./SearchBar";
 import { MovieGrid } from "./MovieGrid";
 import { Pagination } from "@/src/components/common/Pagination";
@@ -11,19 +12,32 @@ import { SkeletonGrid } from "@/src/components/common/SkeletonCard";
 import { Film } from "lucide-react";
 
 export function HomeContent() {
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const query = searchParams.get("q") ?? "";
+  const page = Number(searchParams.get("page") ?? "1");
 
   const { movies, totalResults, totalPages, isLoading, isError, error } =
     useMovieSearch({ query, page });
 
+  const updateParams = useCallback(
+    (params: Record<string, string>) => {
+      const sp = new URLSearchParams(searchParams.toString());
+      for (const [key, value] of Object.entries(params)) {
+        sp.set(key, value);
+      }
+      router.push(`/?${sp.toString()}`);
+    },
+    [searchParams, router]
+  );
+
   const handleSearch = (newQuery: string) => {
-    setQuery(newQuery);
-    setPage(1);
+    updateParams({ q: newQuery, page: "1" });
   };
 
   const handlePageChange = (newPage: number) => {
-    setPage(newPage);
+    updateParams({ page: String(newPage) });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -84,12 +98,12 @@ export function HomeContent() {
             Search through thousands of movies, series and episodes. Find your
             next favorite to watch.
           </p>
-          <SearchBar onSearch={handleSearch} isLoading={isLoading} />
+          <SearchBar onSearch={handleSearch} isLoading={isLoading} defaultValue={query} />
         </section>
       ) : (
         <section className="flex flex-col gap-6 py-8">
           <div className="flex flex-col items-center gap-4">
-            <SearchBar onSearch={handleSearch} isLoading={isLoading} />
+            <SearchBar onSearch={handleSearch} isLoading={isLoading} defaultValue={query} />
             {totalResults > 0 && (
               <p className="text-sm text-muted">
                 {totalResults} results for &quot;{query}&quot;
