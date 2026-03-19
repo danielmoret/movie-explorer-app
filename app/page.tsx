@@ -1,7 +1,10 @@
+import { Suspense } from "react";
+import { HomeContent } from "@/src/components/movies/HomeContent";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Movie Explorer</h1>
-    </main>
+    <Suspense>
+      <HomeContent />
+    </Suspense>
   );
 }

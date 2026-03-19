@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
+import { ThemeProvider } from "@/src/context/ThemeContext";
+import { QueryProvider } from "@/src/context/QueryProvider";
+import { FavoritesProvider } from "@/src/context/FavoritesContext";
+import { SearchHistoryProvider } from "@/src/context/SearchHistoryContext";
+import { Header } from "@/src/components/layout/Header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,13 +12,8 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Movie Explorer",
+  title: "Popcornly",
   description: "Busca y explora películas usando la API de OMDb",
 };
 
@@ -23,11 +23,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${geistSans.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-background text-foreground" suppressHydrationWarning>
+        <QueryProvider>
+          <ThemeProvider>
+            <FavoritesProvider>
+              <SearchHistoryProvider>
+                <Header />
+                <main className="flex-1">{children}</main>
+              </SearchHistoryProvider>
+            </FavoritesProvider>
+          </ThemeProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }

@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Popcornly — Movie Explorer App
+Popcornly is a web application built with **Next.js (App Router)** that consumes the **OMDb API** to search for movies/series, view details, filter results, and manage favorites.
 
-## Getting Started
+## Features
 
-First, run the development server:
+- Home with a prominent **hero** + search bar
+- Search with validation:
+  - only queries with content trigger requests
+  - maximum **50** characters
+- Results in a responsive **grid** with:
+  - poster (visual fallback when missing)
+  - title, year, and type (Movie/Series/Episode)
+- **Pagination** (10 results per page)
+- **Details view** by `imdbId` using `plot=full`
+- Friendly error handling (no results, too many results, API failures)
+
+**PLUS**
+- Filters:
+  - type (`movie` / `series` / `episode`)
+  - year (`y`)
+- Favorites (save/view/remove with `localStorage`)
+- **Dark mode** with a persistent toggle
+- **Skeleton loading** + smooth animations
+- **Search history** (last 10, deduplicated) shown in a dropdown inside the `SearchBar`
+
+## Demo / Deploy
+
+If you deployed the app, add the link here:
+- [Vercel / Netlify / GitHub Pages](TU_LINK_AQUI)
+
+## Requirements
+
+- Node.js 18+
+- Free OMDb account to obtain an API key:
+  - https://www.omdbapi.com/apikey.aspx
+
+## Local Setup
+
+### 1) Install dependencies
+
+```bash
+npm install
+```
+
+### 2) Configure environment variables
+
+Copy the example:
+
+```bash
+copy .env.example .env
+```
+
+Edit `.env`:
+
+```env
+NEXT_PUBLIC_OMDB_API_KEY=your_api_key_here
+```
+
+### 3) Run the project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
+- http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build / Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Main Routes
 
-To learn more about Next.js, take a look at the following resources:
+- `/` Home (search, filters, pagination)
+- `/movies/[id]` Details (where `id` is `imdbId`)
+- `/favorites` Favorites list
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Quick Test (for evaluation)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Home:
+   - search for a valid term (e.g. `batman`) and press `Enter` or the button.
+   - verify pagination and poster grid.
+2. Details:
+   - open a movie and go back using the back button.
+3. Search history (PLUS):
+   - return to Home, focus the search bar.
+   - a dropdown with the last 10 searches should appear.
+4. Favorites (PLUS):
+   - click the heart icon and open `/favorites`.
+   - verify the count updates and the back button is present.
+5. Dark mode:
+   - use the header toggle.
+6. Poster fallback:
+   - when OMDb returns no poster, a visual placeholder is shown.
 
-## Deploy on Vercel
+## Technical Notes (OMDb)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Search:
+  - `?apikey={KEY}&s={QUERY}&page={PAGE}&type={type}&y={year}`
+- Detail:
+  - `?apikey={KEY}&i={IMDB_ID}&plot=full`
