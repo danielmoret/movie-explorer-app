@@ -21,7 +21,7 @@ export function ImageWithFallback({
   className = "object-cover",
   fallback,
 }: ImageWithFallbackProps) {
-  const [broken, setBroken] = useState(false);
+  const [broken, setBroken] = useState<boolean>(false);
 
   const shouldShowPlaceholder =
     broken || !src || src === "N/A" || src === "null";

@@ -12,6 +12,7 @@ import { OmdbSearchError } from "@/src/lib/omdb";
 import { SkeletonGrid } from "@/src/components/common/SkeletonCard";
 import type { MovieType } from "@/src/types/movie";
 import { PopcornlyIcon } from "../icons/PopcornlyIcon";
+import { useSearchHistory } from "@/src/context/SearchHistoryContext";
 
 export function HomeContent() {
   const searchParams = useSearchParams();
@@ -30,6 +31,8 @@ export function HomeContent() {
       year: year || undefined,
     });
 
+  const { recentSearches, addSearch } = useSearchHistory();
+
   const updateParams = useCallback(
     (params: Record<string, string>) => {
       const sp = new URLSearchParams(searchParams.toString());
@@ -46,6 +49,7 @@ export function HomeContent() {
   );
 
   const handleSearch = (newQuery: string) => {
+    addSearch(newQuery);
     updateParams({ q: newQuery, page: "1" });
   };
 
@@ -124,13 +128,25 @@ export function HomeContent() {
             next favorite to watch.
           </p>
           <div className="animate-fade-in-up w-full flex justify-center" style={{ animationDelay: "225ms" }}>
-            <SearchBar onSearch={handleSearch} isLoading={isLoading} defaultValue={query} />
+            <SearchBar
+              onSearch={handleSearch}
+              onPickRecent={handleSearch}
+              recentSearches={recentSearches}
+              isLoading={isLoading}
+              defaultValue={query}
+            />
           </div>
         </section>
       ) : (
         <section className="flex flex-col gap-6 py-8">
           <div className="flex flex-col items-center gap-4">
-            <SearchBar onSearch={handleSearch} isLoading={isLoading} defaultValue={query} />
+            <SearchBar
+              onSearch={handleSearch}
+              onPickRecent={handleSearch}
+              recentSearches={recentSearches}
+              isLoading={isLoading}
+              defaultValue={query}
+            />
             <SearchFilters
               type={type}
               year={year}

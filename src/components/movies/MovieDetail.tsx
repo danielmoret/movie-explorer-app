@@ -14,7 +14,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-      <BackButton label="Back to results" />
+      <BackButton />
 
       <div className="flex flex-col gap-8 md:flex-row">
         <div
@@ -44,19 +44,19 @@ export function MovieDetail({ movie }: MovieDetailProps) {
             />
           </div>
           <div className="flex flex-wrap items-center gap-3 text-sm text-muted">
-              <span className="flex items-center gap-1">
-                <Calendar className="h-4 w-4" />
-                {movie.Year}
+            <span className="flex items-center gap-1">
+              <Calendar className="h-4 w-4" />
+              {movie.Year}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="h-4 w-4" />
+              {movie.Runtime}
+            </span>
+            {movie.Rated !== "N/A" && (
+              <span className="rounded border border-white/20 px-1.5 py-0.5 text-xs">
+                {movie.Rated}
               </span>
-              <span className="flex items-center gap-1">
-                <Clock className="h-4 w-4" />
-                {movie.Runtime}
-              </span>
-              {movie.Rated !== "N/A" && (
-                <span className="rounded border border-white/20 px-1.5 py-0.5 text-xs">
-                  {movie.Rated}
-                </span>
-              )}
+            )}
           </div>
 
           {movie.imdbRating !== "N/A" && (

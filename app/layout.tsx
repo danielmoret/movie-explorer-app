@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "@/src/context/ThemeContext";
 import { QueryProvider } from "@/src/context/QueryProvider";
 import { FavoritesProvider } from "@/src/context/FavoritesContext";
+import { SearchHistoryProvider } from "@/src/context/SearchHistoryContext";
 import { Header } from "@/src/components/layout/Header";
 import "./globals.css";
 
@@ -27,8 +28,10 @@ export default function RootLayout({
         <QueryProvider>
           <ThemeProvider>
             <FavoritesProvider>
-              <Header />
-              <main className="flex-1">{children}</main>
+              <SearchHistoryProvider>
+                <Header />
+                <main className="flex-1">{children}</main>
+              </SearchHistoryProvider>
             </FavoritesProvider>
           </ThemeProvider>
         </QueryProvider>
