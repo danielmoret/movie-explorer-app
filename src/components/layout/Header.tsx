@@ -14,7 +14,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
           <Film className="h-6 w-6 text-accent" />
-          <span className="text-lg font-semibold tracking-tight">
+          <span className="hidden text-lg font-semibold tracking-tight sm:inline">
             Movie Explorer
           </span>
         </Link>
@@ -26,7 +26,7 @@ export function Header() {
           >
             <span className="flex items-center gap-1.5">
               <Heart className="h-4 w-4" />
-              Favorites
+              <span className="hidden sm:inline">Favorites</span>
             </span>
             {count > 0 && (
               <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-black">
