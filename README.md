@@ -24,14 +24,12 @@ Popcornly is a web application built with **Next.js (App Router)** that consumes
 - **Search history** (last 10, deduplicated) shown in a dropdown inside the `SearchBar`
 
 ## Demo / Deploy
-
-If you deployed the app, add the link here:
-- [Vercel / Netlify / GitHub Pages](TU_LINK_AQUI)
+- [Vercel Deploy (Popcornly)](https://movie-explorer-app-nu.vercel.app/)
 
 ## Requirements
 
 - Node.js 18+
-- Free OMDb account to obtain an API key:
+- Free OMDb account to obtain an API key (Select FREE):
   - https://www.omdbapi.com/apikey.aspx
 
 ## Local Setup
