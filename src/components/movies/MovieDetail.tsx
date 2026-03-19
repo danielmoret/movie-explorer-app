@@ -17,7 +17,9 @@ export function MovieDetail({ movie }: MovieDetailProps) {
       <BackButton label="Back to results" />
 
       <div className="flex flex-col gap-8 md:flex-row">
-        <div className="relative aspect-2/3 w-full shrink-0 overflow-hidden rounded-xl md:w-80">
+        <div
+          className="animate-fade-in-up relative aspect-2/3 w-full shrink-0 overflow-hidden rounded-xl md:w-80"
+        >
           <ImageWithFallback
             src={movie.Poster}
             alt={movie.Title}
@@ -25,7 +27,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-5">
+        <div className="animate-fade-in-up flex flex-1 flex-col gap-5" style={{ animationDelay: "100ms" }}>
           <div className="flex items-start justify-between gap-4">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               {movie.Title}

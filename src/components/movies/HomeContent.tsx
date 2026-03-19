@@ -115,15 +115,17 @@ export function HomeContent() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6">
       {!query ? (
         <section className="flex flex-col items-center justify-center gap-6 py-24 text-center">
-          <Film className="h-16 w-16 text-accent" />
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          <Film className="animate-fade-in-up h-16 w-16 text-accent" />
+          <h1 className="animate-fade-in-up text-4xl font-bold tracking-tight sm:text-5xl" style={{ animationDelay: "75ms" }}>
             Discover Movies & Series
           </h1>
-          <p className="max-w-md text-lg text-muted">
+          <p className="animate-fade-in-up max-w-md text-lg text-muted" style={{ animationDelay: "150ms" }}>
             Search through thousands of movies, series and episodes. Find your
             next favorite to watch.
           </p>
-          <SearchBar onSearch={handleSearch} isLoading={isLoading} defaultValue={query} />
+          <div className="animate-fade-in-up w-full flex justify-center" style={{ animationDelay: "225ms" }}>
+            <SearchBar onSearch={handleSearch} isLoading={isLoading} defaultValue={query} />
+          </div>
         </section>
       ) : (
         <section className="flex flex-col gap-6 py-8">
