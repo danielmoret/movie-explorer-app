@@ -20,7 +20,7 @@ export function MovieCard({ movie }: MovieCardProps) {
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
           className="object-cover transition-opacity group-hover:opacity-80"
         />
-        <div className="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100 has-data-active:opacity-100">
+        <div className="absolute right-2 top-2">
           <FavoriteButton movie={movie} className="backdrop-blur-sm bg-black/50" />
         </div>
       </div>
