@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useFavorites } from "@/src/context/FavoritesContext";
 import { MovieGrid } from "./MovieGrid";
+import { BackButton } from "@/src/components/common/BackButton";
 import { StateMessage } from "@/src/components/common/StateMessage";
 import { Heart } from "lucide-react";
 
@@ -13,6 +14,7 @@ export function FavoritesContent() {
   if (favorites.length === 0) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+        <BackButton />
         <h1 className="animate-fade-in-up mb-8 text-3xl font-bold tracking-tight">Favorites</h1>
         <StateMessage
           variant="empty"
@@ -27,6 +29,7 @@ export function FavoritesContent() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+      <BackButton />
       <div className="animate-fade-in-up mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Favorites</h1>
         <p className="text-sm text-muted">

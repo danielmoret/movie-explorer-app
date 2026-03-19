@@ -39,7 +39,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         disabled={disabled}
-        className={`inline-flex items-center justify-center transition-colors disabled:pointer-events-none ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+        className={`inline-flex items-center justify-center cursor-pointer transition-colors disabled:pointer-events-none ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
         {...props}
       >
         {children}
