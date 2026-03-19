@@ -47,3 +47,15 @@ body {
 .animate-fade-in-up {
   animation: fade-in-up 0.4s ease-out both;
 }
+
+.anim-delay-75 {
+  animation-delay: 75ms;
+}
+
+.anim-delay-100 {
+  animation-delay: 100ms;
+}
+
+.anim-delay-225 {
+  animation-delay: 225ms;
+}

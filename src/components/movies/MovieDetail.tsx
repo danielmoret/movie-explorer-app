@@ -27,7 +27,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
           />
         </div>
 
-        <div className="animate-fade-in-up flex flex-1 flex-col gap-5" style={{ animationDelay: "100ms" }}>
+        <div className="animate-fade-in-up anim-delay-100 flex flex-1 flex-col gap-5">
           <div className="flex items-start justify-between gap-4">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               {movie.Title}

@@ -15,11 +15,10 @@ export function MovieGrid({ movies }: MovieGridProps) {
 
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-      {unique.map((movie, i) => (
+      {unique.map((movie) => (
         <div
           key={movie.imdbID}
           className="animate-fade-in-up"
-          style={{ animationDelay: `${i * 50}ms` }}
         >
           <MovieCard movie={movie} />
         </div>

@@ -128,14 +128,14 @@ export function HomeContent() {
       {!query ? (
         <section className="flex flex-col items-center justify-center gap-6 py-24 text-center">
           <PopcornlyIcon className="animate-fade-in-up h-24 w-24 text-accent" />
-          <h1 className="animate-fade-in-up text-4xl font-bold tracking-tight sm:text-5xl" style={{ animationDelay: "75ms" }}>
+          <h1 className="animate-fade-in-up anim-delay-75 text-4xl font-bold tracking-tight sm:text-5xl">
             Discover Movies & Series
           </h1>
-          <p className="animate-fade-in-up max-w-md text-lg text-muted" style={{ animationDelay: "150ms" }}>
+          <p className="animate-fade-in-up anim-delay-150 max-w-md text-lg text-muted">
             Search through thousands of movies, series and episodes. Find your
             next favorite to watch.
           </p>
-          <div className="animate-fade-in-up w-full flex justify-center" style={{ animationDelay: "225ms" }}>
+          <div className="animate-fade-in-up anim-delay-225 w-full flex justify-center">
             <SearchBar
               onSearch={handleSearch}
               onPickRecent={handleSearch}
