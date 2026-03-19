@@ -41,6 +41,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
                 Poster: movie.Poster,
               }}
               size="default"
+              className="backdrop-blur-sm bg-slate-500/15 border border-slate-500/15 shadow-sm dark:bg-black/50 dark:border-white/15"
             />
           </div>
           <div className="flex flex-wrap items-center gap-3 text-sm text-muted">

@@ -21,7 +21,7 @@ export function MovieCard({ movie }: MovieCardProps) {
           className="object-cover transition-opacity group-hover:opacity-80"
         />
         <div className="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100 has-data-active:opacity-100">
-          <FavoriteButton movie={movie} />
+          <FavoriteButton movie={movie} className="backdrop-blur-sm bg-black/50" />
         </div>
       </div>
       <div className="flex flex-col gap-1 p-3">
@@ -30,7 +30,7 @@ export function MovieCard({ movie }: MovieCardProps) {
         </h3>
         <div className="flex items-center gap-2 text-xs text-muted">
           <span>{movie.Year}</span>
-          <span className="rounded bg-white/10 px-1.5 py-0.5 capitalize">
+          <span className="rounded bg-slate-200 text-slate-700 px-1.5 py-0.5 capitalize dark:bg-white/10 dark:text-foreground">
             {movie.Type}
           </span>
         </div>
